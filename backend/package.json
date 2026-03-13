@@ -1,0 +1,41 @@
+{
+  "name": "edunexus-backend",
+  "version": "1.0.0",
+  "description": "The backend of the EduNexus app.",
+  "keywords": [
+    "edunexus",
+    "backend",
+    "web"
+  ],
+  "license": "MIT",
+  "author": "Hesham Alaa",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx tsx watch src/server.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^3.0.43",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^25.4.0",
+    "ai": "^6.0.116",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "helmet": "^8.1.0",
+    "inngest": "^3.52.6",
+    "inngest-cli": "^1.17.5",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.3.0",
+    "morgan": "^1.10.1"
+  }
+}

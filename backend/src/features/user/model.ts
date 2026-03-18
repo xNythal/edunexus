@@ -47,10 +47,12 @@ const userSchema: Schema<IUser> = new Schema(
       type: String,
       default: null,
     },
-    teacherSubject: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Subject',
-    },
+    teacherSubject: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Subject',
+      },
+    ],
   },
   { timestamps: true },
 )

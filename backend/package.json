@@ -13,7 +13,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx tsx watch src/server.ts"
+    "dev": "npx tsx watch src/server.ts",
+    "inngest": "npx --ignore-scripts=false inngest-cli@latest dev -u http://localhost:5174/api/inngest"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
@@ -32,7 +33,7 @@
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "helmet": "^8.1.0",
-    "inngest": "^3.52.6",
+    "inngest": "^3.52.7",
     "inngest-cli": "^1.17.5",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.3.0",

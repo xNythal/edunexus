@@ -3,12 +3,19 @@ import cors from 'cors'
 import 'dotenv/config'
 import express, { NextFunction, Request, Response } from 'express'
 import helmet from 'helmet'
+import { serve } from 'inngest/express'
 import morgan from 'morgan'
 import { connectDb } from './config/db'
+import AppError from './errors/AppError'
 import academicYearRoutes from './features/academic-year/router'
 import logsRoutes from './features/activity-log/router'
 import classRouter from './features/class/router'
+import dashboardRouter from './features/dashboard/router'
+import examRouter from './features/exam/router'
+import subjectRouter from './features/subject/router'
+import timeTableRouter from './features/timetable/router'
 import userRoutes from './features/user/router'
+import { functions, inngest } from './inngest'
 
 const PORT = process.env.PORT || 3000
 
@@ -35,13 +42,26 @@ app.use('/api/users', userRoutes)
 app.use('/api/activity-logs', logsRoutes)
 app.use('/api/academic-years', academicYearRoutes)
 app.use('/api/classes', classRouter)
+app.use('/api/subjects', subjectRouter)
+app.use('/api/timetables', timeTableRouter)
+app.use('/api/exams', examRouter)
+app.use('/api/dashboard', dashboardRouter)
+app.use(
+  '/api/inngest',
+  serve({
+    client: inngest,
+    functions,
+  }),
+)
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode
-  res.status(statusCode)
-  res.json({
-    message: err.message,
-    stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
+  if (error instanceof AppError) {
+    return res.status(error.statusCode).json({ message: error.message })
+  }
+  console.log(error)
+  res.status(500).json({
+    message: 'Internal Server Error',
+    error: process.env.NODE_ENV === 'development' ? error : undefined,
   })
 })
 
